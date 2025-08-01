@@ -1,0 +1,195 @@
+@import '../../../../assets/styles/mixins';
+
+.advertisement-edit-page {
+  padding: 2rem 0;
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  
+  .page-header {
+    @include flex-between;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: var(--border-width) solid var(--border-color);
+    
+    .header-content {
+      h1 {
+        margin: 0 0 0.5rem 0;
+        font-size: var(--font-size-2xl);
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+      
+      p {
+        margin: 0;
+        color: var(--text-muted);
+        font-size: var(--font-size-lg);
+      }
+    }
+    
+    .header-actions {
+      .btn {
+        @include flex-center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: var(--border-radius);
+        font-weight: 500;
+        text-decoration: none;
+        transition: all var(--transition-fast);
+        
+        &.btn-outline {
+          background: none;
+          border: var(--border-width) solid var(--border-color);
+          color: var(--text-primary);
+          
+          &:hover {
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+          }
+        }
+      }
+    }
+  }
+  
+  .form-container {
+    background: var(--bg-primary);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 2rem;
+  }
+  
+  .advertisement-form {
+    .form-grid {
+      display: grid;
+      gap: 2rem;
+    }
+    
+    .form-section {
+      h3 {
+        margin: 0 0 1rem 0;
+        font-size: var(--font-size-lg);
+        font-weight: 600;
+        color: var(--text-primary);
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--primary-blue);
+      }
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      
+      @include responsive(mobile) {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .form-group {
+      margin-bottom: 1rem;
+      
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: var(--text-primary);
+      }
+      
+      .form-control {
+        width: 100%;
+        padding: 0.75rem;
+        border: var(--border-width) solid var(--border-color);
+        border-radius: var(--border-radius);
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        font-size: var(--font-size-sm);
+        transition: all var(--transition-fast);
+        
+        &:focus {
+          outline: none;
+          border-color: var(--primary-blue);
+          box-shadow: 0 0 0 3px rgb(0 87 184 / 0.1);
+        }
+        
+        &::placeholder {
+          color: var(--text-muted);
+        }
+      }
+      
+      .help-text {
+        display: block;
+        margin-top: 0.25rem;
+        font-size: var(--font-size-xs);
+        color: var(--text-muted);
+      }
+      
+      .error-message {
+        color: var(--error);
+        font-size: var(--font-size-xs);
+        margin-top: 0.25rem;
+      }
+      
+      .checkbox-group {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        
+        .form-checkbox {
+          width: 1.25rem;
+          height: 1.25rem;
+          accent-color: var(--primary-blue);
+        }
+        
+        .checkbox-label {
+          margin: 0;
+          cursor: pointer;
+        }
+      }
+    }
+    
+    .form-actions {
+      @include flex-between;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: var(--border-width) solid var(--border-color);
+      
+      .btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: var(--border-radius);
+        font-weight: 500;
+        cursor: pointer;
+        transition: all var(--transition-fast);
+        
+        &.btn-outline {
+          background: none;
+          border: var(--border-width) solid var(--border-color);
+          color: var(--text-primary);
+          
+          &:hover {
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+          }
+        }
+        
+        &.btn-primary {
+          background: var(--primary-blue);
+          border: none;
+          color: white;
+          
+          &:hover:not(:disabled) {
+            background: var(--secondary-blue);
+            transform: translateY(-1px);
+          }
+          
+          &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+          }
+        }
+      }
+    }
+  }
+} 

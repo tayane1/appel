@@ -1,0 +1,73 @@
+@import '../../../../assets/styles/mixins';
+
+.ad-banner {
+  background: linear-gradient(135deg, var(--primary-orange) 0%, var(--primary-green) 100%);
+  color: white;
+  padding: 2rem 0;
+  margin: 2rem 0;
+  
+  .ad-content {
+    @include flex-between;
+    align-items: center;
+    gap: 2rem;
+    
+    @include responsive(mobile) {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .ad-text {
+      flex: 1;
+      
+      h3 {
+        font-size: var(--font-size-2xl);
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+      
+      p {
+        font-size: var(--font-size-lg);
+        margin-bottom: 1.5rem;
+        opacity: 0.9;
+      }
+      
+      .btn {
+        background: white;
+        color: var(--primary-orange);
+        font-weight: 600;
+        
+        &:hover {
+          background: var(--bg-secondary);
+          transform: translateY(-2px);
+        }
+      }
+    }
+    
+    .ad-image {
+      flex-shrink: 0;
+      
+      img {
+        width: 200px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: var(--border-radius-lg);
+        box-shadow: var(--shadow-lg);
+        
+        @include responsive(mobile) {
+          width: 150px;
+          height: 90px;
+        }
+      }
+    }
+  }
+  
+  &.position-top {
+    margin-top: 0;
+  }
+  
+  &.position-bottom {
+    margin-bottom: 0;
+  }
+  
+  
+} 

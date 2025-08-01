@@ -1,0 +1,424 @@
+// Thème ukrainien inspiré de ProZorro
+// Ajouts de design et d'éléments visuels
+
+// Accents ivoiriens (remplace ukrainiens)
+.ivory-coast-accent {
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #ff7900 33%, #ffffff 33% 66%, #00a651 66%);
+  }
+}
+
+// Drapeau ivoirien
+.ivory-coast-flag {
+  display: flex;
+  height: 1.5rem;
+  
+  .flag-stripe {
+    width: 1.5rem;
+    height: 100%;
+    
+    &.orange {
+      background-color: #ff7900; // Orange ivoirien
+    }
+    
+    &.white {
+      background-color: #ffffff;
+    }
+    
+    &.green {
+      background-color: #00a651; // Vert ivoirien
+    }
+  }
+}
+
+// Bannière ivoirienne
+.ivory-coast-banner {
+  background: linear-gradient(135deg, #ff7900, #00a651);
+  color: white;
+  padding: 1rem 0;
+  text-align: center;
+  
+  .banner-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    
+    .ivory-coast-flag {
+      display: flex;
+      height: 1.5rem;
+      
+      .flag-stripe {
+        width: 1.5rem;
+        height: 100%;
+        
+        &.orange {
+          background-color: #ff7900;
+        }
+        
+        &.white {
+          background-color: #ffffff;
+        }
+        
+        &.green {
+          background-color: #00a651;
+        }
+      }
+    }
+  }
+}
+
+// Cards avec style ProZorro - Disposition améliorée
+.card-prozorro {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  background: var(--bg-primary);
+  box-shadow: var(--shadow);
+  transition: all var(--transition-normal);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  
+  &:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+  }
+  
+  .card-header {
+    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue-light));
+    color: white;
+    padding: 1.5rem;
+    
+    .card-title {
+      font-size: var(--font-size-xl);
+      font-weight: 600;
+      margin: 0;
+      color: white;
+    }
+    
+    .card-subtitle {
+      font-size: var(--font-size-sm);
+      opacity: 0.9;
+      margin-top: 0.5rem;
+      color: white;
+    }
+  }
+  
+  .card-body {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .card-footer {
+    padding: 1rem 1.5rem;
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    margin-top: auto;
+  }
+}
+
+// Boutons avec style ukrainien
+.btn-ukraine {
+  background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue-light));
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+    color: white;
+    text-decoration: none;
+  }
+  
+  &.btn-yellow {
+    background: linear-gradient(135deg, var(--primary-yellow), var(--secondary-yellow-light));
+    color: var(--gray-900);
+    
+    &:hover {
+      color: var(--gray-900);
+    }
+  }
+}
+
+// Navigation avec style ProZorro
+.nav-prozorro {
+  background: var(--bg-primary);
+  border-bottom: 2px solid var(--primary-blue);
+  
+  .nav-item {
+    position: relative;
+    
+    &.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--primary-yellow);
+    }
+  }
+}
+
+// Badges ukrainiens
+.badge-ukraine {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  border-radius: 9999px;
+  
+  &.badge-blue {
+    background-color: rgb(0 87 184 / 0.1);
+    color: var(--primary-blue);
+    border: 1px solid rgb(0 87 184 / 0.2);
+  }
+  
+  &.badge-yellow {
+    background-color: rgb(255 221 0 / 0.1);
+    color: var(--primary-yellow);
+    border: 1px solid rgb(255 221 0 / 0.2);
+  }
+  
+  &.badge-orange {
+    background-color: rgb(255 121 0 / 0.1);
+    color: #ff7900;
+    border: 1px solid rgb(255 121 0 / 0.2);
+  }
+  
+  &.badge-green {
+    background-color: rgb(0 166 81 / 0.1);
+    color: #00a651;
+    border: 1px solid rgb(0 166 81 / 0.2);
+  }
+}
+
+// Footer ukrainien
+.footer-ukraine {
+  background: linear-gradient(135deg, var(--gray-800), var(--gray-900));
+  color: white;
+  padding: 3rem 0 1rem;
+  
+  .footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+    
+    .footer-section {
+      h3 {
+        color: var(--primary-yellow);
+        margin-bottom: 1rem;
+      }
+      
+      a {
+        color: var(--gray-300);
+        text-decoration: none;
+        transition: color var(--transition-fast);
+        
+        &:hover {
+          color: var(--primary-yellow);
+        }
+      }
+    }
+  }
+  
+  .footer-bottom {
+    border-top: 1px solid var(--gray-700);
+    padding-top: 1rem;
+    text-align: center;
+    color: var(--gray-400);
+  }
+}
+
+// Grille ProZorro - Disposition comme sur le site
+.prozorro-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+  
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+  
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  }
+}
+
+// Section avec style ProZorro
+.prozorro-section {
+  padding: 3rem 0;
+  
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    
+    .section-title {
+      font-size: var(--font-size-3xl);
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+    
+    .section-subtitle {
+      font-size: var(--font-size-lg);
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
+}
+
+// Animations ukrainiennes
+@keyframes ukraineWave {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+}
+
+.ukraine-wave {
+  animation: ukraineWave 2s ease-in-out infinite;
+}
+
+// Icônes visibles
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: currentColor;
+  
+  &.icon-sm {
+    width: 1rem;
+    height: 1rem;
+  }
+  
+  &.icon-lg {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+// Corrections de visibilité pour les formulaires
+.form-container {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  
+  .form-title {
+    color: var(--text-primary);
+  }
+  
+  .form-subtitle {
+    color: var(--text-secondary);
+  }
+  
+  .form-label {
+    color: var(--text-primary);
+  }
+  
+  .form-input {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    
+    &:focus {
+      border-color: var(--primary-blue);
+      color: var(--text-primary);
+    }
+    
+    &::placeholder {
+      color: var(--text-muted);
+    }
+  }
+  
+  .form-text {
+    color: var(--text-secondary);
+  }
+  
+  .form-link {
+    color: var(--primary-blue);
+    
+    &:hover {
+      color: var(--secondary-blue-light);
+    }
+  }
+}
+
+// Corrections pour les cartes et éléments de contenu
+.content-card {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  
+  .card-title {
+    color: var(--text-primary);
+  }
+  
+  .card-text {
+    color: var(--text-secondary);
+  }
+  
+  .card-meta {
+    color: var(--text-muted);
+  }
+}
+
+// Responsive design pour mobile
+@media (max-width: 768px) {
+  .ivory-coast-banner {
+    .banner-content {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+  
+  .card-prozorro {
+    .card-header {
+      padding: 1rem;
+    }
+    
+    .card-body {
+      padding: 1rem;
+    }
+  }
+  
+  .footer-ukraine {
+    .footer-content {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+  
+  .prozorro-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+} 

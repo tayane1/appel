@@ -1,0 +1,12 @@
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-secondary);
+  transition: background-color var(--transition-normal);
+}
+
+.main-content {
+  flex: 1;
+  min-height: calc(100vh - 4rem - 4rem); // Hauteur totale - header - footer
+} 

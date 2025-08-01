@@ -1,0 +1,424 @@
+// Styles pour le composant home
+.home-page {
+  // Hero Section
+  .hero {
+    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue-light));
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+    
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      
+      .hero-title {
+        font-size: var(--font-size-4xl);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+        color: white;
+        
+        .highlight {
+          color: var(--primary-yellow);
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+      }
+      
+      .hero-subtitle {
+        font-size: var(--font-size-lg);
+        margin-bottom: 2rem;
+        opacity: 0.9;
+        line-height: 1.6;
+        color: white;
+      }
+      
+      .hero-search {
+        margin-bottom: 3rem;
+        
+        .search-form {
+          display: flex;
+          gap: 1rem;
+          max-width: 600px;
+          margin: 0 auto;
+          
+          .search-input {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: var(--font-size-base);
+            color: var(--text-primary);
+            background: white;
+            
+            &:focus {
+              outline: none;
+              box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+            }
+            
+            &::placeholder {
+              color: var(--text-muted);
+            }
+          }
+          
+          .sector-select {
+            padding: 1rem;
+            border: none;
+            border-radius: var(--border-radius);
+            background: white;
+            font-size: var(--font-size-base);
+            min-width: 150px;
+            color: var(--text-primary);
+            
+            &:focus {
+              outline: none;
+              box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+            }
+          }
+          
+          .search-btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            color: white;
+            
+            &:hover {
+              transform: translateY(-2px);
+              box-shadow: var(--shadow-lg);
+            }
+          }
+        }
+      }
+      
+      .stats {
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
+        
+        .stat-item {
+          text-align: center;
+          
+          .stat-number {
+            display: block;
+            font-size: var(--font-size-3xl);
+            font-weight: 700;
+            color: var(--primary-yellow);
+            margin-bottom: 0.5rem;
+          }
+          
+          .stat-label {
+            font-size: var(--font-size-sm);
+            opacity: 0.8;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+  
+  // Sections ProZorro
+  .prozorro-section {
+    padding: 4rem 0;
+    background: var(--bg-primary);
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      
+      .section-title {
+        font-size: var(--font-size-3xl);
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+      }
+      
+      .section-subtitle {
+        font-size: var(--font-size-lg);
+        color: var(--text-secondary);
+        max-width: 600px;
+        margin: 0 auto 2rem;
+        line-height: 1.6;
+      }
+      
+      .btn-ukraine {
+        margin-top: 1rem;
+      }
+    }
+  }
+  
+  // Grille ProZorro
+  .prozorro-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+    
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+    
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    }
+  }
+  
+  // Cards
+  .card-prozorro {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    
+    .tender-header,
+    .supplier-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      
+      .tender-type-badge,
+      .verified-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: var(--font-size-xs);
+        font-weight: 500;
+      }
+      
+      .tender-deadline {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        font-size: var(--font-size-sm);
+        color: var(--text-muted);
+        
+        .icon {
+          width: 1rem;
+          height: 1rem;
+          color: currentColor;
+        }
+      }
+    }
+    
+    .tender-title,
+    .supplier-name {
+      font-size: var(--font-size-lg);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+      
+      a {
+        color: var(--text-primary);
+        text-decoration: none;
+        
+        &:hover {
+          color: var(--primary-blue);
+        }
+      }
+    }
+    
+    .tender-description,
+    .supplier-description {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+    
+    .tender-meta,
+    .supplier-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      
+      .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: var(--font-size-sm);
+        color: var(--text-muted);
+        
+        .icon {
+          width: 1rem;
+          height: 1rem;
+          color: currentColor;
+        }
+      }
+    }
+    
+    .supplier-services {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      
+      .service-tag {
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: var(--font-size-xs);
+        font-weight: 500;
+      }
+      
+      .more-services {
+        font-size: var(--font-size-xs);
+        color: var(--text-muted);
+        align-self: center;
+      }
+    }
+    
+    .tender-footer,
+    .supplier-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      
+      .tender-amount {
+        font-weight: 600;
+        color: var(--primary-blue);
+      }
+      
+      .experience {
+        font-size: var(--font-size-sm);
+        color: var(--text-muted);
+      }
+    }
+    
+    // Service cards
+    .service-icon {
+      width: 4rem;
+      height: 4rem;
+      margin: 0 auto 1.5rem;
+      background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue-light));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      
+      .icon {
+        width: 2rem;
+        height: 2rem;
+        color: white;
+      }
+    }
+    
+    h3 {
+      font-size: var(--font-size-xl);
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+      text-align: center;
+    }
+    
+    p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      text-align: center;
+    }
+  }
+  
+  // Empty states
+  .empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-muted);
+    background: var(--bg-primary);
+    
+    .icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+      color: var(--text-muted);
+    }
+    
+    h3 {
+      font-size: var(--font-size-xl);
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+    
+    p {
+      color: var(--text-secondary);
+    }
+  }
+  
+  // Icônes visibles
+  .icon {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    color: currentColor;
+    
+    &.lucide-search,
+    &.lucide-arrow-right,
+    &.lucide-clock,
+    &.lucide-building,
+    &.lucide-map-pin,
+    &.lucide-tag,
+    &.lucide-shield-check,
+    &.lucide-briefcase,
+    &.lucide-star,
+    &.lucide-megaphone,
+    &.lucide-users,
+    &.lucide-bell,
+    &.lucide-file-text {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+  
+  // Responsive
+  @media (max-width: 768px) {
+    .hero {
+      padding: 2rem 0;
+      
+      .hero-content {
+        .hero-title {
+          font-size: var(--font-size-3xl);
+        }
+        
+        .hero-subtitle {
+          font-size: var(--font-size-base);
+        }
+        
+        .hero-search {
+          .search-form {
+            flex-direction: column;
+            
+            .sector-select {
+              min-width: auto;
+            }
+          }
+        }
+        
+        .stats {
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+      }
+    }
+    
+    .prozorro-section {
+      padding: 2rem 0;
+      
+      .section-header {
+        .section-title {
+          font-size: var(--font-size-2xl);
+        }
+        
+        .section-subtitle {
+          font-size: var(--font-size-base);
+        }
+      }
+    }
+    
+    .prozorro-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+} 

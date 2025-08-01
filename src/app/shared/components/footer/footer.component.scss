@@ -1,0 +1,171 @@
+@import '../../../../assets/styles/mixins';
+
+.footer {
+  background: var(--bg-primary);
+  border-top: var(--border-width) solid var(--border-color);
+  padding: 3rem 0 1rem;
+  margin-top: auto;
+  
+  .footer-content {
+    .footer-main {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 3rem;
+      margin-bottom: 2rem;
+      
+      @include responsive(mobile) {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .footer-brand {
+        .brand {
+          @include flex-center;
+          gap: 0.75rem;
+          font-size: var(--font-size-xl);
+          font-weight: 700;
+          margin-bottom: 1rem;
+          
+          .logo {
+            width: 2.5rem;
+            height: 2.5rem;
+          }
+          
+          .brand-name {
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+          }
+        }
+        
+        .brand-description {
+          color: var(--text-secondary);
+          margin-bottom: 1.5rem;
+          line-height: 1.6;
+        }
+        
+        .social-links {
+          @include flex-center;
+          gap: 1rem;
+          
+          .social-link {
+            @include flex-center;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: var(--bg-secondary);
+            border-radius: 50%;
+            color: var(--text-primary);
+            transition: all var(--transition-fast);
+            
+            &:hover {
+              background: var(--primary-orange);
+              color: white;
+              transform: translateY(-2px);
+            }
+          }
+        }
+      }
+      
+      .footer-links {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+        
+        @include responsive(mobile) {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1.5rem;
+        }
+        
+        .link-group {
+          h3 {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+          }
+          
+          ul {
+            list-style: none;
+            
+            li {
+              margin-bottom: 0.5rem;
+              
+              a {
+                color: var(--text-secondary);
+                transition: color var(--transition-fast);
+                
+                &:hover {
+                  color: var(--primary-orange);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    
+    .footer-bottom {
+      @include flex-between;
+      padding-top: 20rem;
+      border-top: var(--border-width) solid var(--border-color);
+      
+      @include responsive(mobile) {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+      
+      .footer-info {
+        p {
+          color: var(--text-muted);
+          margin-bottom: 0.5rem;
+        }
+        
+        .legal-links {
+          @include flex-center;
+          gap: 1rem;
+          
+          @include responsive(mobile) {
+            flex-direction: column;
+            gap: 0.5rem;
+          }
+          
+          a {
+            color: var(--text-secondary);
+            font-size: var(--font-size-sm);
+            
+            &:hover {
+              color: var(--primary-orange);
+            }
+          }
+        }
+      }
+      
+      .footer-stats {
+        @include flex-center;
+        gap: 2rem;
+        
+        @include responsive(mobile) {
+          gap: 1rem;
+        }
+        
+        .stat {
+          text-align: center;
+          
+          .stat-number {
+            display: block;
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            color: var(--primary-orange);
+          }
+          
+          .stat-label {
+            font-size: var(--font-size-xs);
+            color: var(--text-muted);
+          }
+        }
+      }
+    }
+  }
+} 

@@ -1,0 +1,512 @@
+.supplier-detail-page {
+  padding: 2rem 0;
+  min-height: 100vh;
+  background: var(--bg-secondary);
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    i {
+      font-size: 0.8rem;
+    }
+  }
+
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 0;
+    text-align: center;
+    color: var(--text-muted);
+  }
+
+  .supplier-detail {
+    background: var(--bg-primary);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+
+  .supplier-header {
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+
+    .supplier-info {
+      display: flex;
+      gap: 1.5rem;
+      flex: 1;
+
+      .supplier-logo {
+        width: 80px;
+        height: 80px;
+        border-radius: 12px;
+        object-fit: cover;
+        background: white;
+        padding: 0.5rem;
+      }
+
+      .supplier-details {
+        flex: 1;
+
+        .supplier-name {
+          font-size: 2rem;
+          font-weight: 700;
+          margin: 0 0 0.5rem 0;
+        }
+
+        .supplier-tagline {
+          font-size: 1.1rem;
+          opacity: 0.9;
+          margin: 0 0 1rem 0;
+        }
+
+        .supplier-badges {
+          display: flex;
+          gap: 0.5rem;
+
+          .verified-badge,
+          .featured-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+          }
+
+          .verified-badge {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+          }
+
+          .featured-badge {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+          }
+        }
+      }
+    }
+
+    .supplier-rating {
+      text-align: right;
+
+      .rating-stars {
+        display: flex;
+        gap: 0.25rem;
+        margin-bottom: 0.5rem;
+
+        i {
+          font-size: 1.2rem;
+          color: #fbbf24;
+
+          &.filled {
+            color: #f59e0b;
+          }
+        }
+      }
+
+      .rating-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        display: block;
+      }
+
+      .rating-count {
+        font-size: 0.9rem;
+        opacity: 0.8;
+      }
+    }
+  }
+
+  .supplier-content {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 2rem;
+    padding: 2rem;
+
+    .main-content {
+      .content-section {
+        margin-bottom: 2.5rem;
+
+        h2 {
+          font-size: 1.5rem;
+          font-weight: 600;
+          margin: 0 0 1rem 0;
+          color: var(--text-primary);
+          border-bottom: 2px solid var(--border-color);
+          padding-bottom: 0.5rem;
+        }
+
+        .description-content {
+          line-height: 1.6;
+          color: var(--text-secondary);
+        }
+
+        .services-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 1rem;
+
+          .service-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+
+            i {
+              color: var(--primary-color);
+              font-size: 1.2rem;
+            }
+          }
+        }
+
+        .experience-info {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 1.5rem;
+
+          .experience-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+
+            i {
+              font-size: 2rem;
+              color: var(--primary-color);
+            }
+
+            .experience-details {
+              display: flex;
+              flex-direction: column;
+
+              .experience-label {
+                font-size: 0.9rem;
+                color: var(--text-muted);
+                margin-bottom: 0.25rem;
+              }
+
+              .experience-value {
+                font-size: 1.1rem;
+                font-weight: 600;
+                color: var(--text-primary);
+              }
+            }
+          }
+        }
+
+        .projects-grid {
+          display: grid;
+          gap: 1.5rem;
+
+          .project-item {
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-color);
+
+            .project-header {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 1rem;
+
+              h4 {
+                font-size: 1.2rem;
+                font-weight: 600;
+                margin: 0;
+                color: var(--text-primary);
+              }
+
+              .project-year {
+                background: var(--primary-color);
+                color: white;
+                padding: 0.25rem 0.75rem;
+                border-radius: 20px;
+                font-size: 0.8rem;
+                font-weight: 500;
+              }
+            }
+
+            .project-description {
+              color: var(--text-secondary);
+              line-height: 1.6;
+              margin-bottom: 1rem;
+            }
+
+            .project-meta {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              font-size: 0.9rem;
+
+              .project-client {
+                color: var(--text-muted);
+              }
+
+              .project-value {
+                font-weight: 600;
+                color: var(--primary-color);
+              }
+            }
+          }
+        }
+
+        .reviews-list {
+          display: grid;
+          gap: 1.5rem;
+
+          .review-item {
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+
+            .review-header {
+              display: flex;
+              justify-content: space-between;
+              align-items: flex-start;
+              margin-bottom: 1rem;
+
+              .reviewer-info {
+                .reviewer-name {
+                  display: block;
+                  font-weight: 600;
+                  color: var(--text-primary);
+                  margin-bottom: 0.25rem;
+                }
+
+                .review-date {
+                  font-size: 0.9rem;
+                  color: var(--text-muted);
+                }
+              }
+
+              .review-rating {
+                display: flex;
+                gap: 0.25rem;
+
+                i {
+                  font-size: 1rem;
+                  color: #fbbf24;
+
+                  &.filled {
+                    color: #f59e0b;
+                  }
+                }
+              }
+            }
+
+            .review-comment {
+              color: var(--text-secondary);
+              line-height: 1.6;
+              margin: 0;
+            }
+          }
+        }
+      }
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+
+      .contact-card,
+      .actions-card,
+      .stats-card,
+      .certifications-card {
+        background: var(--bg-secondary);
+        border-radius: 12px;
+        padding: 1.5rem;
+
+        h3 {
+          font-size: 1.2rem;
+          font-weight: 600;
+          margin: 0 0 1rem 0;
+          color: var(--text-primary);
+        }
+      }
+
+      .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        .contact-item {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          color: var(--text-secondary);
+
+          i {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+          }
+
+          a {
+            color: var(--primary-color);
+            text-decoration: none;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+
+      .actions-card {
+        .btn {
+          width: 100%;
+          margin-bottom: 0.75rem;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+
+      .stats-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        .stat-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0.75rem 0;
+          border-bottom: 1px solid var(--border-color);
+
+          &:last-child {
+            border-bottom: none;
+          }
+
+          .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+          }
+
+          .stat-value {
+            font-weight: 600;
+            color: var(--text-primary);
+          }
+        }
+      }
+
+      .certifications-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+
+        .certification-item {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 0.75rem;
+          background: var(--bg-primary);
+          border-radius: 8px;
+
+          i {
+            color: var(--primary-color);
+          }
+        }
+      }
+    }
+  }
+
+  .not-found {
+    text-align: center;
+    padding: 4rem 0;
+    color: var(--text-muted);
+
+    i {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin: 0 0 1rem 0;
+      color: var(--text-primary);
+    }
+
+    p {
+      margin: 0 0 2rem 0;
+      line-height: 1.6;
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .supplier-detail-page {
+    .supplier-header {
+      flex-direction: column;
+      gap: 1rem;
+
+      .supplier-info {
+        flex-direction: column;
+        text-align: center;
+
+        .supplier-logo {
+          align-self: center;
+        }
+      }
+
+      .supplier-rating {
+        text-align: center;
+      }
+    }
+
+    .supplier-content {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding: 1.5rem;
+
+      .main-content {
+        .content-section {
+          .services-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .experience-info {
+            grid-template-columns: 1fr;
+          }
+        }
+      }
+    }
+  }
+} 
