@@ -251,10 +251,10 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
 })
 export class SupplierDetailComponent implements OnInit {
   private supplierSignal = signal<Supplier | null>(null);
-  private isLoadingSignal = signal(false);
+  private loadingSignal = signal(false);
 
   public supplier = this.supplierSignal.asReadonly();
-  public isLoading = this.isLoadingSignal.asReadonly();
+  public isLoading = this.loadingSignal.asReadonly();
 
   constructor(
     private supplierService: SupplierService,
@@ -263,28 +263,23 @@ export class SupplierDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loadSupplier();
-  }
-
-  private loadSupplier() {
-    this.isLoadingSignal.set(true);
-    
     const supplierId = this.route.snapshot.paramMap.get('id');
-    if (!supplierId) {
-      this.router.navigate(['/suppliers']);
-      return;
+    if (supplierId) {
+      this.supplierService.getSupplier(supplierId).subscribe({
+        next: (supplier: Supplier | null) => {
+          if (supplier) {
+            this.supplierSignal.set(supplier);
+            this.loadingSignal.set(false);
+          } else {
+            this.router.navigate(['/suppliers']);
+          }
+        },
+        error: (error: any) => {
+          console.error('Erreur lors du chargement du fournisseur:', error);
+          this.router.navigate(['/suppliers']);
+        }
+      });
     }
-
-    this.supplierService.getSupplierById(supplierId).subscribe({
-      next: (supplier) => {
-        this.supplierSignal.set(supplier);
-        this.isLoadingSignal.set(false);
-      },
-      error: (error) => {
-        console.error('Erreur lors du chargement du fournisseur:', error);
-        this.isLoadingSignal.set(false);
-      }
-    });
   }
 
   contactSupplier() {

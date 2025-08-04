@@ -2,11 +2,16 @@
 
 .header {
   background: var(--bg-primary);
-  border-bottom: var(--border-width) solid var(--border-color);
-  position: sticky;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color);
+  position: fixed;
   top: 0;
-  z-index: var(--z-sticky);
-  box-shadow: var(--shadow-sm);
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
   
   .container {
     max-width: 1400px;
@@ -18,36 +23,66 @@
     @include flex-between;
     height: 5rem;
     padding: 0;
+    flex-wrap: nowrap;
+    align-items: center;
   }
   
   .brand {
     @include flex-center;
     gap: 0.75rem;
-    font-size: var(--font-size-xl);
-    font-weight: 700;
+    font-size: 1.5rem;
+    font-weight: 600;
     color: var(--text-primary);
     cursor: pointer;
-    transition: transform var(--transition-fast);
+    transition: all 0.2s ease;
     flex-shrink: 0;
+    text-decoration: none;
     
     &:hover {
-      transform: scale(1.05);
+      transform: translateY(-1px);
     }
     
-    .logo {
-      width: 2.5rem;
-      height: 2.5rem;
+    .logo-container {
+      position: relative;
+      
+      .ivory-coast-flag {
+        width: 2.5rem;
+        height: 2.5rem;
+        display: flex;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        
+        .flag-stripe {
+          flex: 1;
+          
+          &.orange {
+            background-color: #ff7900;
+          }
+          
+          &.white {
+            background-color: #ffffff;
+          }
+          
+          &.green {
+            background-color: #00a651;
+          }
+        }
+      }
     }
     
     .brand-name {
-      background: linear-gradient(135deg, orange, green);
+      background: linear-gradient(135deg, #ff7900, #00a651);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      font-weight: 700;
     }
   }
   
   .main-nav {
+    flex-shrink: 0;
+    white-space: nowrap;
     @include flex-center;
     gap: 3rem;
     flex: 1;
@@ -160,8 +195,9 @@
   
   .user-actions {
     @include flex-center;
-    gap: 1.5rem;
+    gap: 1rem;
     flex-shrink: 0;
+    white-space: nowrap;
     
     .search-box {
       position: relative;
@@ -196,24 +232,40 @@
         color: var(--text-muted);
         cursor: pointer;
         padding: 0.25rem;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+        
+        &:hover {
+          color: var(--primary-blue);
+          background: rgba(0, 87, 184, 0.1);
+        }
+        
+        svg {
+          display: block;
+        }
       }
     }
     
     .theme-toggle {
       @include flex-center;
-      width: 3rem;
-      height: 3rem;
-      background: none;
-      border: var(--border-width) solid var(--border-color);
-      border-radius: 50%;
+      width: 2.75rem;
+      height: 2.75rem;
+      background: var(--bg-secondary);
+      border: 1px solid transparent;
+      border-radius: 12px;
       color: var(--text-primary);
       cursor: pointer;
-      transition: all var(--transition-fast);
+      transition: all 0.2s ease;
       
       &:hover {
-        border-color: var(--primary-blue);
-        color: var(--primary-blue);
-        transform: scale(1.1);
+        background: var(--primary-blue);
+        color: white;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 87, 184, 0.3);
+      }
+      
+      svg {
+        display: block;
       }
     }
     
@@ -223,12 +275,15 @@
       .user-avatar {
         @include flex-center;
         gap: 0.75rem;
-        background: none;
+        background: transparent;
         border: none;
         cursor: pointer;
-        padding: 0.5rem;
-        border-radius: var(--border-radius);
-        transition: all var(--transition-fast);
+        padding: 0.5rem 0.75rem;
+        border-radius: 12px;
+        transition: all 0.2s ease;
+        min-height: 3rem;
+        position: relative;
+        z-index: 100;
         
         &:hover {
           background: var(--bg-secondary);
@@ -236,26 +291,49 @@
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         
+        &:focus {
+          outline: 2px solid var(--primary-blue);
+          outline-offset: 2px;
+        }
+        
         .avatar {
-          width: 2.5rem;
-          height: 2.5rem;
+          width: 40px;
+          height: 40px;
           border-radius: 50%;
           border: 2px solid white;
-          box-shadow: 0 2px 8px rgba(0, 87, 184, 0.2);
-          transition: all var(--transition-fast);
-          background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+          transition: all 0.2s ease;
+          background: linear-gradient(135deg, #0057b8, #4a90e2);
           display: flex;
           align-items: center;
           justify-content: center;
           color: white;
-          font-weight: 600;
-          font-size: 0.875rem;
+          font-weight: bold;
+          font-size: 14px;
+          position: relative;
+          z-index: 1000;
+          flex-shrink: 0;
+          min-width: 40px;
+          min-height: 40px;
+          overflow: hidden;
           
           .avatar-text {
             color: white;
-            font-weight: 600;
-            font-size: 0.875rem;
+            font-weight: bold;
+            font-size: 14px;
             text-transform: uppercase;
+            display: block;
+            line-height: 1;
+            text-align: center;
+            width: 100%;
+            height: auto;
+            opacity: 1;
+            visibility: visible;
+            position: relative;
+            z-index: 1001;
+            pointer-events: none;
+            margin: 0;
+            padding: 0;
           }
         }
         
@@ -266,6 +344,16 @@
           
           @include responsive(mobile) {
             display: none;
+          }
+        }
+        
+        .avatar-icon {
+          color: var(--text-muted);
+          transition: all 0.2s ease;
+          flex-shrink: 0;
+          
+          @include responsive(mobile) {
+            display: block;
           }
         }
         
@@ -344,6 +432,16 @@
           display: flex;
           align-items: center;
           gap: 0.75rem;
+          
+          .menu-icon {
+            color: var(--text-muted);
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+          }
+          
+          &:hover .menu-icon {
+            color: var(--primary-blue);
+          }
           padding: 0.875rem 1rem;
           color: var(--text-primary);
           text-decoration: none;
@@ -423,15 +521,34 @@
         }
       }
       
-      // Supprimer le hover pour le dropdown utilisateur
-      &:hover .dropdown-menu {
-        // Ne rien faire - le dropdown ne s'ouvre qu'au clic
-      }
+      // Le dropdown utilisateur ne s'ouvre qu'au clic, pas au hover
     }
     
-    .auth-buttons {
+    .admin-access {
       @include flex-center;
       gap: 0.75rem;
+      
+      .btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        font-size: var(--font-size-sm);
+        
+        &.btn-outline {
+          border: 2px solid var(--primary-blue);
+          color: var(--primary-blue);
+          background: transparent;
+          
+          &:hover {
+            background: var(--primary-blue);
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 87, 184, 0.3);
+          }
+        }
+      }
     }
     
     .mobile-menu-toggle {

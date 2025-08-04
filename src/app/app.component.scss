@@ -9,4 +9,10 @@
 .main-content {
   flex: 1;
   min-height: calc(100vh - 4rem - 4rem); // Hauteur totale - header - footer
+  padding-top: 5rem; // Compenser la hauteur du header fixe
+  
+  &.admin-content {
+    min-height: 100vh; // Pour l'admin, pas de header/footer public
+    padding-top: 4rem; // Compenser la hauteur du header admin fixe
+  }
 } 

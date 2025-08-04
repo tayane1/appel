@@ -1,73 +1,286 @@
 @import '../../../../assets/styles/mixins';
 
 .ad-banner {
-  background: linear-gradient(135deg, var(--primary-orange) 0%, var(--primary-green) 100%);
-  color: white;
-  padding: 2rem 0;
-  margin: 2rem 0;
-  
-  .ad-content {
-    @include flex-between;
-    align-items: center;
-    gap: 2rem;
+  position: relative;
+  background: #1f2937; // Thème sombre comme dans l'image
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 1rem 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  // Bannières verticales (gauche et droite)
+  &.vertical {
+    width: 280px;
+    min-height: 400px;
+    margin: 0;
+    position: sticky;
+    top: 2rem;
     
-    @include responsive(mobile) {
-      flex-direction: column;
-      text-align: center;
+    &.left {
+      margin-right: 2rem;
     }
     
-    .ad-text {
-      flex: 1;
+    &.right {
+      margin-left: 2rem;
+    }
+    
+    // Badge "Publicité" seulement pour les bannières verticales
+    .ad-badge {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text-primary);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      z-index: 10;
+    }
+    
+    .ad-content {
+      flex-direction: column;
+      padding: 1.5rem;
+      height: 100%;
       
-      h3 {
-        font-size: var(--font-size-2xl);
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-      }
-      
-      p {
-        font-size: var(--font-size-lg);
-        margin-bottom: 1.5rem;
-        opacity: 0.9;
-      }
-      
-      .btn {
-        background: white;
-        color: var(--primary-orange);
-        font-weight: 600;
+      .ad-image {
+        width: 100%;
+        height: 160px;
+        margin-bottom: 1rem;
         
-        &:hover {
-          background: var(--bg-secondary);
-          transform: translateY(-2px);
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 8px;
+        }
+      }
+      
+      .ad-text {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        
+        h3 {
+          font-size: 1.1rem;
+          margin-bottom: 0.75rem;
+          line-height: 1.3;
+        }
+        
+        p {
+          font-size: 0.9rem;
+          margin-bottom: 1rem;
+          flex: 1;
+          line-height: 1.4;
         }
       }
     }
-    
-    .ad-image {
-      flex-shrink: 0;
+  }
+
+  // Bannières horizontales (haut, milieu, bas)
+  &:not(.vertical) {
+    .ad-content {
+      display: flex;
+      align-items: center;
+      padding: 2rem;
+      position: relative;
+      z-index: 1;
       
-      img {
+      .ad-text {
+        flex: 1;
+        color: white;
+        
+        h3 {
+          font-size: 1.5rem;
+          font-weight: 600;
+          margin-bottom: 0.5rem;
+          color: white;
+        }
+        
+        p {
+          font-size: 1rem;
+          margin-bottom: 1rem;
+          color: white;
+          opacity: 0.9;
+        }
+        
+        .btn {
+          background: white;
+          color: #1f2937;
+          border: none;
+          padding: 0.75rem 1.5rem;
+          border-radius: 8px;
+          font-weight: 600;
+          text-decoration: none;
+          display: inline-block;
+          transition: all 0.2s ease;
+          cursor: pointer;
+          
+          &:hover {
+            background: #f3f4f6;
+            transform: translateY(-1px);
+          }
+        }
+      }
+      
+      .ad-image {
         width: 200px;
         height: 120px;
-        object-fit: cover;
-        border-radius: var(--border-radius-lg);
-        box-shadow: var(--shadow-lg);
+        margin-left: 2rem;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 2px solid rgba(255, 255, 255, 0.3);
         
-        @include responsive(mobile) {
-          width: 150px;
-          height: 90px;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+    
+    // Badge "Publicité" pour les bannières horizontales
+    .ad-badge {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: #374151;
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      
+      .badge-icon {
+        font-size: 0.875rem;
+        color: #22c55e;
+      }
+    }
+  }
+}
+
+// Thème sombre
+[data-theme="dark"] {
+  .ad-banner {
+    &.vertical {
+      background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      
+      .ad-text {
+        h3, p {
+          color: white;
+        }
+      }
+      
+      .ad-badge {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+    }
+  }
+}
+
+// Thème clair
+[data-theme="light"] {
+  .ad-banner {
+    &.vertical {
+      background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      
+      .ad-text {
+        h3, p {
+          color: var(--text-primary);
+        }
+      }
+      
+      .ad-badge {
+        background: rgba(0, 0, 0, 0.1);
+        color: var(--text-primary);
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 1200px) {
+  .ad-banner.vertical {
+    width: 240px;
+    min-height: 350px;
+    
+    &.left {
+      margin-right: 1rem;
+    }
+    
+    &.right {
+      margin-left: 1rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .ad-banner.vertical {
+    width: 100%;
+    min-height: auto;
+    margin: 1rem 0 !important;
+    position: static;
+    
+    .ad-content {
+      flex-direction: row;
+      padding: 1rem;
+      
+      .ad-image {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 0;
+        margin-left: 1rem;
+      }
+      
+      .ad-text {
+        h3 {
+          font-size: 1rem;
+        }
+        
+        p {
+          font-size: 0.85rem;
         }
       }
     }
   }
   
-  &.position-top {
-    margin-top: 0;
+  .ad-banner:not(.vertical) {
+    .ad-content {
+      flex-direction: column;
+      text-align: center;
+      padding: 1.5rem;
+      
+      .ad-image {
+        width: 100%;
+        height: 120px;
+        margin-left: 0;
+        margin-top: 1rem;
+      }
+      
+      .ad-text {
+        h3 {
+          font-size: 1.25rem;
+        }
+        
+        p {
+          font-size: 0.9rem;
+        }
+      }
+    }
   }
-  
-  &.position-bottom {
-    margin-bottom: 0;
-  }
-  
-  
 } 

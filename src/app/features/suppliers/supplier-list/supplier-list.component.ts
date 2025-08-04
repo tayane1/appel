@@ -22,8 +22,8 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
         <!-- Header -->
         <div class="page-header">
           <div class="header-content">
-            <h1>Annuaire des fournisseurs</h1>
-            <p>Découvrez des fournisseurs qualifiés et certifiés en Côte d'Ivoire</p>
+            <h1>Fournisseurs</h1>
+            <p>Découvrez notre annuaire de fournisseurs certifiés et qualifiés</p>
           </div>
           <div class="header-actions">
             <button class="btn btn-primary" (click)="toggleFilters()">
@@ -47,7 +47,7 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
                   type="text"
                   formControlName="keyword"
                   class="form-control"
-                  placeholder="Rechercher par nom, secteur, services...">
+                  placeholder="Rechercher par nom, description, secteur...">
               </div>
 
               <div class="form-group">
@@ -68,20 +68,12 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
 
               <div class="form-group">
                 <label>Note minimum</label>
-                <select formControlName="rating" class="form-control">
+                <select formControlName="minRating" class="form-control">
                   <option value="">Toutes les notes</option>
                   <option value="4">4 étoiles et plus</option>
                   <option value="3">3 étoiles et plus</option>
                   <option value="2">2 étoiles et plus</option>
                 </select>
-              </div>
-
-              <div class="form-group">
-                <label class="checkbox-label">
-                  <input type="checkbox" formControlName="isVerified">
-                  <span class="checkmark"></span>
-                  Fournisseurs vérifiés uniquement
-                </label>
               </div>
             </div>
 
@@ -99,96 +91,100 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
         </div>
 
         <!-- Statistiques -->
-        <div class="stats-bar">
-          <div class="stat-item">
-            <span class="stat-number">{{ totalSuppliers() }}</span>
-            <span class="stat-label">Fournisseurs trouvés</span>
+        <div class="stats-section">
+          <div class="stat-card">
+            <div class="stat-number">{{ totalSuppliers() }}</div>
+            <div class="stat-label">Total</div>
           </div>
-          <div class="stat-item">
-            <span class="stat-number">{{ verifiedSuppliers() }}</span>
-            <span class="stat-label">Vérifiés</span>
+          <div class="stat-card featured">
+            <div class="stat-number">{{ featuredSuppliers() }}</div>
+            <div class="stat-label">Recommandés</div>
           </div>
-          <div class="stat-item">
-            <span class="stat-number">{{ featuredSuppliers() }}</span>
-            <span class="stat-label">En vedette</span>
+          <div class="stat-card verified">
+            <div class="stat-number">{{ verifiedSuppliers() }}</div>
+            <div class="stat-label">Vérifiés</div>
           </div>
         </div>
 
         <!-- Liste des fournisseurs -->
-        <div class="supplier-list" *ngIf="!isLoading(); else loadingTpl">
-          <div class="supplier-grid" *ngIf="suppliers().length > 0; else emptyTpl">
+        <div class="suppliers-section">
+          <div class="loading-container" *ngIf="isLoading()">
+            <app-loading-spinner></app-loading-spinner>
+          </div>
+
+          <div class="suppliers-grid" *ngIf="!isLoading() && suppliers().length > 0">
             <div class="supplier-card" *ngFor="let supplier of suppliers()">
               <div class="supplier-header">
-                <img 
-                  [src]="supplier.logo || 'assets/images/default-company.png'" 
-                  [alt]="supplier.companyName"
-                  class="supplier-logo">
+                <div class="supplier-logo">
+                  <img [src]="supplier.logo || 'assets/images/supplier-placeholder.jpg'" [alt]="supplier.companyName">
+                </div>
                 <div class="supplier-badges">
-                  <span class="verified-badge" *ngIf="supplier.isVerified">
-                    <i class="lucide-shield-check"></i>
+                  <span class="badge verified" *ngIf="supplier.isVerified">
+                    <i class="lucide-check-circle"></i>
                     Vérifié
                   </span>
-                  <span class="featured-badge" *ngIf="supplier.isFeatured">
+                  <span class="badge featured" *ngIf="supplier.isFeatured">
                     <i class="lucide-star"></i>
-                    En vedette
+                    Recommandé
                   </span>
                 </div>
               </div>
 
-              <h3 class="supplier-name">
-                <a [routerLink]="['/suppliers', supplier.id]">{{ supplier.companyName }}</a>
-              </h3>
-
-              <p class="supplier-description">{{ supplier.description | slice:0:120 }}...</p>
-
-              <div class="supplier-meta">
-                <div class="meta-item">
-                  <i class="lucide-briefcase"></i>
-                  {{ supplier.sector }}
+              <div class="supplier-content">
+                <h3 class="supplier-title">
+                  <a [routerLink]="['/suppliers', supplier.id]">{{ supplier.companyName }}</a>
+                </h3>
+                <p class="supplier-description">{{ supplier.description }}</p>
+                
+                <div class="supplier-meta">
+                  <div class="meta-item">
+                    <i class="lucide-briefcase"></i>
+                    <span>{{ supplier.sector }}</span>
+                  </div>
+                  <div class="meta-item">
+                    <i class="lucide-map-pin"></i>
+                    <span>{{ supplier.city }}, {{ supplier.address }}</span>
+                  </div>
+                  <div class="meta-item">
+                    <i class="lucide-star"></i>
+                    <span>{{ supplier.rating }}/5 ({{ supplier.reviewsCount }} avis)</span>
+                  </div>
+                  <div class="meta-item">
+                    <i class="lucide-calendar"></i>
+                    <span>Membre depuis {{ supplier.createdAt | date:'yyyy' }}</span>
+                  </div>
                 </div>
-                <div class="meta-item">
-                  <i class="lucide-map-pin"></i>
-                  {{ supplier.city }}
-                </div>
-                <div class="meta-item">
-                  <i class="lucide-star"></i>
-                  {{ supplier.rating }}/5 ({{ supplier.reviewsCount }} avis)
-                </div>
-                <div class="meta-item">
-                  <i class="lucide-clock"></i>
-                  {{ supplier.yearsOfExperience }} ans d'expérience
-                </div>
-              </div>
 
-              <div class="supplier-services">
-                <span 
-                  class="service-tag" 
-                  *ngFor="let service of supplier.services.slice(0, 3)">
-                  {{ service }}
-                </span>
-                <span class="more-services" *ngIf="supplier.services.length > 3">
-                  +{{ supplier.services.length - 3 }} autres
-                </span>
-              </div>
-
-              <div class="supplier-footer">
-                <div class="supplier-actions">
-                  <a [routerLink]="['/suppliers', supplier.id]" class="btn btn-primary btn-sm">
+                <div class="supplier-footer">
+                  <div class="supplier-tags">
+                    <span class="tag" *ngFor="let service of supplier.services?.slice(0, 3)">{{ service }}</span>
+                  </div>
+                  <button class="btn btn-primary btn-sm" [routerLink]="['/suppliers', supplier.id]">
+                    <i class="lucide-eye"></i>
                     Voir profil
-                  </a>
-                  <button class="btn btn-outline btn-sm" (click)="contactSupplier(supplier)">
-                    <i class="lucide-mail"></i>
-                    Contacter
                   </button>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Pagination -->
-          <div class="pagination" *ngIf="totalPages() > 1">
+          <div class="empty-state" *ngIf="!isLoading() && suppliers().length === 0">
+            <div class="empty-icon">
+              <i class="lucide-users"></i>
+            </div>
+            <h3>Aucun fournisseur trouvé</h3>
+            <p>Aucun fournisseur ne correspond à vos critères de recherche.</p>
+            <button class="btn btn-primary" (click)="clearFilters()">
+              Effacer les filtres
+            </button>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-section" *ngIf="totalPages() > 1">
+          <div class="pagination">
             <button 
-              class="btn btn-outline"
+              class="btn btn-outline" 
               [disabled]="currentPage() === 1"
               (click)="changePage(currentPage() - 1)">
               <i class="lucide-chevron-left"></i>
@@ -198,15 +194,16 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
             <div class="page-numbers">
               <button 
                 *ngFor="let page of getPageNumbers()"
-                class="page-btn"
-                [class.active]="page === currentPage()"
+                class="btn"
+                [class.btn-primary]="page === currentPage()"
+                [class.btn-outline]="page !== currentPage()"
                 (click)="changePage(page)">
                 {{ page }}
               </button>
             </div>
 
             <button 
-              class="btn btn-outline"
+              class="btn btn-outline" 
               [disabled]="currentPage() === totalPages()"
               (click)="changePage(currentPage() + 1)">
               Suivant
@@ -214,25 +211,6 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
             </button>
           </div>
         </div>
-
-        <!-- Templates -->
-        <ng-template #loadingTpl>
-          <div class="loading-container">
-            <app-loading-spinner></app-loading-spinner>
-            <p>Chargement des fournisseurs...</p>
-          </div>
-        </ng-template>
-
-        <ng-template #emptyTpl>
-          <div class="empty-state">
-            <i class="lucide-users"></i>
-            <h3>Aucun fournisseur trouvé</h3>
-            <p>Aucun fournisseur ne correspond à vos critères de recherche.</p>
-            <button class="btn btn-primary" (click)="clearFilters()">
-              Effacer les filtres
-            </button>
-          </div>
-        </ng-template>
       </div>
     </div>
   `,
@@ -273,10 +251,9 @@ export class SupplierListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.initForm();
+    this.loadSuppliers();
     this.loadSectors();
     this.loadCities();
-    this.loadSuppliers();
   }
 
   private initForm() {
@@ -289,37 +266,41 @@ export class SupplierListComponent implements OnInit {
     });
   }
 
-  private loadSectors() {
-    this.supplierService.getSectors().subscribe({
-      next: (sectors) => this.sectorsSignal.set(sectors),
-      error: (error) => console.error('Erreur lors du chargement des secteurs:', error)
-    });
-  }
-
-  private loadCities() {
-    this.supplierService.getCities().subscribe({
-      next: (cities) => this.citiesSignal.set(cities),
-      error: (error) => console.error('Erreur lors du chargement des villes:', error)
-    });
-  }
-
   private loadSuppliers() {
     this.isLoadingSignal.set(true);
-    
-    const filter: SupplierFilter = this.filterForm.value;
-    const page = this.currentPage();
-
-    this.supplierService.getSuppliers(filter, page, 12).subscribe({
-      next: (response) => {
-        this.suppliersSignal.set(response.suppliers);
-        this.totalSignal.set(response.total);
-        this.totalPagesSignal.set(response.totalPages);
+    this.supplierService.getSuppliers().subscribe({
+      next: (suppliers) => {
+        this.suppliersSignal.set(suppliers);
+        this.totalSignal.set(suppliers.length);
+        this.totalPagesSignal.set(Math.ceil(suppliers.length / 12));
         this.isLoadingSignal.set(false);
       },
       error: (error) => {
         console.error('Erreur lors du chargement des fournisseurs:', error);
         this.isLoadingSignal.set(false);
       }
+    });
+  }
+
+  private loadSectors() {
+    // Utiliser les secteurs des fournisseurs existants
+    this.supplierService.getSuppliers().subscribe({
+      next: (suppliers) => {
+        const sectors = [...new Set(suppliers.map(s => s.sector))];
+        this.sectorsSignal.set(sectors);
+      },
+      error: (error) => console.error('Erreur lors du chargement des secteurs:', error)
+    });
+  }
+
+  private loadCities() {
+    // Utiliser les villes des fournisseurs existants
+    this.supplierService.getSuppliers().subscribe({
+      next: (suppliers) => {
+        const cities = [...new Set(suppliers.map(s => s.city))];
+        this.citiesSignal.set(cities);
+      },
+      error: (error) => console.error('Erreur lors du chargement des villes:', error)
     });
   }
 

@@ -1,312 +1,244 @@
-@import '../../../../assets/styles/mixins';
-
 .tender-list-page {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  color: var(--text-primary);
   padding: 2rem 0;
-  
-  .page-header {
-    @include flex-between;
-    margin-bottom: 2rem;
-    
-    @include responsive(mobile) {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1rem;
-    }
-    
-    .header-content {
-      h1 {
-        font-size: var(--font-size-3xl);
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-        color: var(--text-primary);
-      }
-      
-      p {
-        color: var(--text-secondary);
-        margin-bottom: 0;
-      }
-    }
-    
-    .header-actions {
-      @include flex-center;
-      gap: 1rem;
-    }
-  }
-  
-  .filters-section {
-    @include card;
-    margin-bottom: 2rem;
-    overflow: hidden;
-    max-height: 0;
-    transition: max-height var(--transition-normal);
-    
-    &.active {
-      max-height: 500px;
-      padding: 1.5rem;
-    }
-    
-    .filters-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-    
-    .filters-actions {
-      @include flex-center;
-      gap: 1rem;
-      
-      @include responsive(mobile) {
-        flex-direction: column;
-        width: 100%;
-        
-        .btn {
-          width: 100%;
-        }
-      }
-    }
-  }
-  
-  .stats-bar {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.stats-section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.stat-card {
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid var(--border-color);
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.empty-icon {
+  margin-bottom: 1.5rem;
+}
+
+.empty-icon .icon {
+  font-size: 4rem;
+  opacity: 0.5;
+  color: var(--text-muted);
+}
+
+.empty-state h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+}
+
+.btn-primary {
+  background: #3b82f6;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #2563eb;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-outline:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+  .stats-section {
+    grid-template-columns: 1fr;
     gap: 1rem;
-    margin-bottom: 2rem;
-    
-    @include responsive(mobile) {
-      grid-template-columns: 1fr;
-    }
-    
-    .stat-item {
-      @include card;
-      padding: 1.5rem;
-      text-align: center;
-      
-      .stat-number {
-        display: block;
-        font-size: var(--font-size-2xl);
-        font-weight: 700;
-        color: var(--primary-orange);
-        margin-bottom: 0.5rem;
-      }
-      
-      .stat-label {
-        color: var(--text-secondary);
-        font-size: var(--font-size-sm);
-      }
-    }
+  }
+}
+
+// Mode light spécifique
+[data-theme="light"] {
+  .tender-list-page {
+    background: #ffffff;
   }
   
-  .tender-list {
-    .tender-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-      gap: 2rem;
-      margin-bottom: 3rem;
-      
-      @include responsive(mobile) {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
-    }
-    
-    .tender-card {
-      @include card;
-      padding: 1.5rem;
-      transition: all var(--transition-fast);
-      
-      &:hover {
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-lg);
-      }
-      
-      .tender-header {
-        @include flex-between;
-        margin-bottom: 1rem;
-        
-        .tender-type-badge {
-          display: inline-block;
-          font-size: var(--font-size-xs);
-          font-weight: 500;
-          padding: 0.25rem 0.75rem;
-          border-radius: 9999px;
-          
-          &.badge-public {
-            background-color: rgb(34 197 94 / 0.1);
-            color: var(--success);
-          }
-          
-          &.badge-private {
-            background-color: rgb(59 130 246 / 0.1);
-            color: var(--primary-blue);
-          }
-        }
-        
-        .tender-status {
-          font-size: var(--font-size-xs);
-          font-weight: 500;
-          padding: 0.25rem 0.75rem;
-          border-radius: 9999px;
-          
-          &.status-published {
-            background-color: rgb(34 197 94 / 0.1);
-            color: var(--success);
-          }
-          
-          &.status-closed {
-            background-color: rgb(107 114 128 / 0.1);
-            color: var(--gray-500);
-          }
-          
-          &.status-cancelled {
-            background-color: rgb(239 68 68 / 0.1);
-            color: var(--error);
-          }
-        }
-      }
-      
-      .tender-title {
-        margin-bottom: 1rem;
-        
-        a {
-          color: var(--text-primary);
-          text-decoration: none;
-          font-size: var(--font-size-lg);
-          font-weight: 600;
-          line-height: 1.4;
-          
-          &:hover {
-            color: var(--primary-orange);
-          }
-        }
-      }
-      
-      .tender-description {
-        color: var(--text-secondary);
-        margin-bottom: 1.5rem;
-        line-height: 1.6;
-      }
-      
-      .tender-meta {
-        margin-bottom: 1.5rem;
-        
-        .meta-item {
-          @include flex-center;
-          gap: 0.5rem;
-          margin-bottom: 0.5rem;
-          font-size: var(--font-size-sm);
-          color: var(--text-secondary);
-          
-          i {
-            color: var(--text-muted);
-            width: 1rem;
-          }
-        }
-      }
-      
-      .tender-footer {
-        @include flex-between;
-        align-items: flex-end;
-        
-        @include responsive(mobile) {
-          flex-direction: column;
-          align-items: stretch;
-          gap: 1rem;
-        }
-        
-        .tender-amount {
-          .amount-label {
-            font-size: var(--font-size-sm);
-            color: var(--text-secondary);
-            margin-right: 0.5rem;
-          }
-          
-          .amount-value {
-            font-weight: 600;
-            color: var(--primary-orange);
-          }
-        }
-        
-        .tender-actions {
-          @include flex-center;
-          gap: 0.75rem;
-          
-          @include responsive(mobile) {
-            justify-content: stretch;
-            
-            .btn {
-              flex: 1;
-            }
-          }
-        }
-      }
-    }
-    
-    .pagination {
-      @include flex-center;
-      gap: 1rem;
-      
-      .page-numbers {
-        @include flex-center;
-        gap: 0.5rem;
-        
-        .page-btn {
-          @include flex-center;
-          width: 2.5rem;
-          height: 2.5rem;
-          border: var(--border-width) solid var(--border-color);
-          border-radius: var(--border-radius);
-          background: var(--bg-primary);
-          color: var(--text-primary);
-          font-weight: 500;
-          cursor: pointer;
-          transition: all var(--transition-fast);
-          
-          &:hover:not(.active) {
-            border-color: var(--primary-orange);
-            color: var(--primary-orange);
-          }
-          
-          &.active {
-            background: var(--primary-orange);
-            border-color: var(--primary-orange);
-            color: white;
-          }
-        }
-      }
-    }
+  .stat-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
   }
   
-  .loading-container {
-    @include flex-center;
-    flex-direction: column;
-    padding: 4rem 2rem;
-    gap: 1rem;
-    
-    p {
-      color: var(--text-secondary);
-      margin-bottom: 0;
-    }
+  .stat-number {
+    color: #1e293b;
   }
   
-  .empty-state {
-    text-align: center;
-    padding: 4rem 2rem;
-    color: var(--text-muted);
-    
-    i {
-      font-size: 4rem;
-      margin-bottom: 1rem;
-      opacity: 0.5;
-    }
-    
-    h3 {
-      margin-bottom: 0.5rem;
-      color: var(--text-secondary);
-    }
-    
-    p {
-      margin-bottom: 2rem;
-    }
+  .stat-label {
+    color: #64748b;
+  }
+  
+  .empty-state h3 {
+    color: #1e293b;
+  }
+  
+  .empty-state p {
+    color: #64748b;
+  }
+  
+  .empty-icon .icon {
+    color: #94a3b8;
+  }
+  
+  .btn-outline {
+    color: #64748b;
+    border: 1px solid #cbd5e1;
+  }
+  
+  .btn-outline:hover {
+    background: #f1f5f9;
+    color: #1e293b;
+  }
+  
+  .tender-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+  }
+  
+  .tender-title a {
+    color: #1e293b;
+  }
+  
+  .tender-title a:hover {
+    color: #3b82f6;
+  }
+  
+  .tender-description {
+    color: #64748b;
+  }
+  
+  .meta-item {
+    color: #64748b;
+  }
+  
+  .time-remaining {
+    color: #64748b;
+  }
+}
+
+// Mode dark spécifique
+[data-theme="dark"] {
+  .tender-list-page {
+    background: #1f2937;
+  }
+  
+  .stat-card {
+    background: #374151;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .stat-number {
+    color: white;
+  }
+  
+  .stat-label {
+    color: #9ca3af;
+  }
+  
+  .empty-state h3 {
+    color: white;
+  }
+  
+  .empty-state p {
+    color: #9ca3af;
+  }
+  
+  .empty-icon .icon {
+    color: #6b7280;
+  }
+  
+  .btn-outline {
+    color: #9ca3af;
+    border: 1px solid #4b5563;
+  }
+  
+  .btn-outline:hover {
+    background: #374151;
+    color: white;
+  }
+  
+  .tender-card {
+    background: #374151;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .tender-title a {
+    color: white;
+  }
+  
+  .tender-title a:hover {
+    color: #3b82f6;
+  }
+  
+  .tender-description {
+    color: #9ca3af;
+  }
+  
+  .meta-item {
+    color: #9ca3af;
+  }
+  
+  .time-remaining {
+    color: #9ca3af;
   }
 } 

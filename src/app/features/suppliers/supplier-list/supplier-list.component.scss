@@ -1,4 +1,7 @@
 // Styles pour le composant supplier-list
 .supplier-list-page {
   // Styles de base
+  min-height: 100vh;
+  background: var(--bg-secondary);
+  padding: 2rem 0;
 } 

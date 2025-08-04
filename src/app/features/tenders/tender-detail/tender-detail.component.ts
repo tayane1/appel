@@ -2,7 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { TenderService } from '../tender.service';
-import { Tender, TenderStatus } from '../../../core/models/tender.model';
+import { Tender, TenderStatus, TenderDocument } from '../../../core/models/tender.model';
 import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
 
 @Component({
@@ -198,10 +198,10 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
 })
 export class TenderDetailComponent implements OnInit {
   private tenderSignal = signal<Tender | null>(null);
-  private isLoadingSignal = signal(false);
+  private loadingSignal = signal(false);
 
   public tender = this.tenderSignal.asReadonly();
-  public isLoading = this.isLoadingSignal.asReadonly();
+  public isLoading = this.loadingSignal.asReadonly();
 
   constructor(
     private tenderService: TenderService,
@@ -210,28 +210,23 @@ export class TenderDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loadTender();
-  }
-
-  private loadTender() {
-    this.isLoadingSignal.set(true);
-    
     const tenderId = this.route.snapshot.paramMap.get('id');
-    if (!tenderId) {
-      this.router.navigate(['/tenders']);
-      return;
+    if (tenderId) {
+      this.tenderService.getTender(tenderId).subscribe({
+        next: (tender: Tender | null) => {
+          if (tender) {
+            this.tenderSignal.set(tender);
+            this.loadingSignal.set(false);
+          } else {
+            this.router.navigate(['/tenders']);
+          }
+        },
+        error: (error: any) => {
+          console.error('Erreur lors du chargement de l\'appel d\'offres:', error);
+          this.router.navigate(['/tenders']);
+        }
+      });
     }
-
-    this.tenderService.getTenderById(tenderId).subscribe({
-      next: (tender) => {
-        this.tenderSignal.set(tender);
-        this.isLoadingSignal.set(false);
-      },
-      error: (error) => {
-        console.error('Erreur lors du chargement de l\'appel d\'offres:', error);
-        this.isLoadingSignal.set(false);
-      }
-    });
   }
 
   getStatusLabel(status: TenderStatus | undefined): string {
@@ -269,20 +264,14 @@ export class TenderDetailComponent implements OnInit {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   }
 
-  downloadDocument(document: any) {
-    this.tenderService.downloadDocument(document.id).subscribe({
-      next: (blob) => {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = document.name;
-        a.click();
-        window.URL.revokeObjectURL(url);
-      },
-      error: (error) => {
-        console.error('Erreur lors du téléchargement:', error);
-      }
-    });
+  downloadDocument(tenderDocument: TenderDocument) {
+    // Simulation du téléchargement
+    const link = document.createElement('a');
+    link.href = tenderDocument.url;
+    link.download = tenderDocument.name;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 
   applyForTender() {

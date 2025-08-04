@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Supplier } from '../../core/models/supplier.model';
 import { ApiService } from '../../core/services/api.service';
-import { Supplier, SupplierFilter } from '../../core/models/supplier.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,52 +9,19 @@ import { Supplier, SupplierFilter } from '../../core/models/supplier.model';
 export class SupplierService {
   constructor(private apiService: ApiService) {}
 
-  getSuppliers(filter?: SupplierFilter, page = 1, limit = 12): Observable<{
-    suppliers: Supplier[];
-    total: number;
-    page: number;
-    totalPages: number;
-  }> {
-    const params = {
-      page,
-      limit,
-      ...filter
-    };
-    
-    return this.apiService.get<{
-      suppliers: Supplier[];
-      total: number;
-      page: number;
-      totalPages: number;
-    }>('/suppliers', params);
+  getSuppliers(): Observable<Supplier[]> {
+    return this.apiService.getSuppliers();
   }
 
-  getSupplierById(id: string): Observable<Supplier> {
-    return this.apiService.get<Supplier>(`/suppliers/${id}`);
+  getSupplier(id: string): Observable<Supplier | null> {
+    return this.apiService.getSupplier(id);
   }
 
-  getFeaturedSuppliers(limit = 6): Observable<Supplier[]> {
-    return this.apiService.get<{ suppliers: Supplier[] }>('/suppliers/featured', { limit })
-      .pipe(map(response => response.suppliers));
+  getFeaturedSuppliers(limit: number = 6): Observable<Supplier[]> {
+    return this.apiService.getFeaturedSuppliers(limit);
   }
 
-  createSupplier(supplier: Partial<Supplier>): Observable<Supplier> {
-    return this.apiService.post<Supplier>('/suppliers', supplier);
-  }
-
-  updateSupplier(id: string, supplier: Partial<Supplier>): Observable<Supplier> {
-    return this.apiService.put<Supplier>(`/suppliers/${id}`, supplier);
-  }
-
-  deleteSupplier(id: string): Observable<void> {
-    return this.apiService.delete<void>(`/suppliers/${id}`);
-  }
-
-  getSectors(): Observable<string[]> {
-    return this.apiService.get<string[]>('/suppliers/sectors');
-  }
-
-  getCities(): Observable<string[]> {
-    return this.apiService.get<string[]>('/suppliers/cities');
+  searchSuppliers(query: string): Observable<Supplier[]> {
+    return this.apiService.searchSuppliers(query);
   }
 } 

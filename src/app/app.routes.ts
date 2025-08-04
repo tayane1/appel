@@ -44,10 +44,15 @@ export const routes: Routes = [
   {
     path: 'admin',
     canActivate: [adminGuard],
+    loadComponent: () => import('./shared/components/admin-layout/admin-layout.component').then(m => m.AdminLayoutComponent),
     children: [
       {
         path: '',
         loadComponent: () => import('./features/admin/dashboard/dashboard.component').then(m => m.DashboardComponent)
+      },
+      {
+        path: 'profile',
+        loadComponent: () => import('./features/admin/profile/profile.component').then(m => m.ProfileComponent)
       },
       {
         path: 'tenders',
@@ -68,6 +73,10 @@ export const routes: Routes = [
       {
         path: 'users',
         loadComponent: () => import('./features/admin/user-management/user-management.component').then(m => m.UserManagementComponent)
+      },
+      {
+        path: 'users/create',
+        loadComponent: () => import('./features/admin/user-management/user-create.component').then(m => m.UserCreateComponent)
       },
       {
         path: 'ads',

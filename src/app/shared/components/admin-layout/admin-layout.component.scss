@@ -1,0 +1,17 @@
+@import '../../../../assets/styles/mixins';
+
+.admin-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-secondary);
+}
+
+.admin-main {
+  flex: 1;
+  padding: 2rem;
+  
+  @include responsive(mobile) {
+    padding: 1rem;
+  }
+} 

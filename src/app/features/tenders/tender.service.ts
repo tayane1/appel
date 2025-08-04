@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Tender } from '../../core/models/tender.model';
 import { ApiService } from '../../core/services/api.service';
-import { Tender, TenderFilter } from '../../core/models/tender.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,56 +9,32 @@ import { Tender, TenderFilter } from '../../core/models/tender.model';
 export class TenderService {
   constructor(private apiService: ApiService) {}
 
-  getTenders(filter?: TenderFilter, page = 1, limit = 10): Observable<{
-    tenders: Tender[];
-    total: number;
-    page: number;
-    totalPages: number;
-  }> {
-    const params = {
-      page,
-      limit,
-      ...filter
-    };
-    
-    return this.apiService.get<{
-      tenders: Tender[];
-      total: number;
-      page: number;
-      totalPages: number;
-    }>('/tenders', params);
+  getTenders(): Observable<Tender[]> {
+    return this.apiService.getTenders();
   }
 
-  getTenderById(id: string): Observable<Tender> {
-    return this.apiService.get<Tender>(`/tenders/${id}`);
+  getTender(id: string): Observable<Tender | null> {
+    return this.apiService.getTender(id);
   }
 
-  getRecentTenders(limit = 6): Observable<Tender[]> {
-    return this.apiService.get<{ tenders: Tender[] }>('/tenders/recent', { limit })
-      .pipe(map(response => response.tenders));
+  getRecentTenders(limit: number = 6): Observable<Tender[]> {
+    return this.apiService.getRecentTenders(limit);
   }
 
+  searchTenders(query: string): Observable<Tender[]> {
+    return this.apiService.searchTenders(query);
+  }
+
+  // Méthodes pour l'administration
   createTender(tender: Partial<Tender>): Observable<Tender> {
-    return this.apiService.post<Tender>('/tenders', tender);
+    return this.apiService.createTender(tender);
   }
 
-  updateTender(id: string, tender: Partial<Tender>): Observable<Tender> {
-    return this.apiService.put<Tender>(`/tenders/${id}`, tender);
+  updateTender(id: string, updates: Partial<Tender>): Observable<Tender> {
+    return this.apiService.updateTender(id, updates);
   }
 
   deleteTender(id: string): Observable<void> {
-    return this.apiService.delete<void>(`/tenders/${id}`);
-  }
-
-  downloadDocument(documentId: string): Observable<Blob> {
-    return this.apiService.get<Blob>(`/tenders/documents/${documentId}/download`);
-  }
-
-  getSectors(): Observable<string[]> {
-    return this.apiService.get<string[]>('/tenders/sectors');
-  }
-
-  getLocations(): Observable<string[]> {
-    return this.apiService.get<string[]>('/tenders/locations');
+    return this.apiService.deleteTender(id);
   }
 } 

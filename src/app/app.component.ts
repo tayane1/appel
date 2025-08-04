@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 import { ThemeService } from './core/services/theme.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -18,11 +19,12 @@ import { ThemeService } from './core/services/theme.service';
   ],
   template: `
     <div class="app-container" [attr.data-theme]="themeService.theme()">
-      <app-header></app-header>
-      <main class="main-content">
+      <!-- Header et Footer publics seulement pour les routes non-admin -->
+      <app-header *ngIf="!isAdminRoute()"></app-header>
+      <main class="main-content" [class.admin-content]="isAdminRoute()">
         <router-outlet></router-outlet>
       </main>
-      <app-footer></app-footer>
+      <app-footer *ngIf="!isAdminRoute()"></app-footer>
       <app-loading-spinner></app-loading-spinner>
     </div>
   `,
@@ -30,12 +32,29 @@ import { ThemeService } from './core/services/theme.service';
 })
 export class AppComponent implements OnInit {
   title = 'CI-Tender - Plateforme ivoirienne d\'appels d\'offres';
+  private currentRoute = '';
 
-  constructor(public themeService: ThemeService) {}
+  constructor(
+    public themeService: ThemeService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     // Initialisation de Google Analytics
     this.initGoogleAnalytics();
+    
+    // Écouter les changements de route
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: any) => {
+      if (event instanceof NavigationEnd) {
+        this.currentRoute = event.url;
+      }
+    });
+  }
+
+  isAdminRoute(): boolean {
+    return this.currentRoute.startsWith('/admin') || this.currentRoute.startsWith('/login');
   }
 
   private initGoogleAnalytics() {

@@ -1,6 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
 
@@ -263,7 +263,7 @@ export class UserManagementComponent implements OnInit {
   public totalPages = this.totalPagesSignal.asReadonly();
   public stats = this.statsSignal.asReadonly();
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private router: Router) {}
 
   ngOnInit() {
     this.initForm();
@@ -428,7 +428,7 @@ export class UserManagementComponent implements OnInit {
   }
 
   createUser() {
-    console.log('Créer un nouvel utilisateur');
+    this.router.navigate(['/admin/users/create']);
   }
 
   viewUser(user: any) {
