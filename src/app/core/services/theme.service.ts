@@ -33,9 +33,8 @@ export class ThemeService {
     if (savedTheme) {
       this.themeSignal.set(savedTheme);
     } else {
-      // Détecter la préférence système
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      this.themeSignal.set(prefersDark ? 'dark' : 'light');
+      // Thème light par défaut
+      this.themeSignal.set('light');
     }
   }
 } 
